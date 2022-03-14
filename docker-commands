@@ -1,0 +1,59 @@
+Docker and Deploy
+
+01. First of all you need to install docker and docker composition (already installed with it4each.com)
+02. Create docker-composition.yml, fill it and run with the command:
+    docker-compose up --build
+
+
+CREATING DOCKER CONTAINER WITH POSTGRES
+1. pull image from hub.docker.com
+    docker pull postgres:alpine
+
+2. check image
+    docker images
+
+    REPOSITORY     TAG          IMAGE ID       CREATED        SIZE
+    postgres       alpine       ad69bf1fc058   4 days ago     213MB
+
+3. create and run container
+    docker run --name drf-postgres -e POSTGRES_PASSWORD=1 -h 127.0.0.1 -p 25432:5432 -d postgres
+0012dd799024def54a57349db7f356e9fb0c6b9a4b69318705b26c57d6fc5d6b
+4. check running dockers
+    docker ps
+
+    CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+    0012dd799024   postgres   "docker-entrypoint.s…"   17 seconds ago   Up 16 seconds   0.0.0.0:25432->5432/tcp, :::25432->5432/tcp   drf-postgres
+
+5. entry to the docke
+    docker exec -it drf-postgres bash
+result:
+    root@127:/#
+
+6. entry to postgres:
+    psql -U postgres
+
+result:
+    psql (14.2 (Debian 14.2-1.pgdg110+1))
+    Type "help" for help.
+
+    postgres=#
+
+7. just in case changing the password for user postgres
+    \password
+result:
+    Enter new password for user "postgres": 1
+    Enter it again: 1
+
+8. create database library
+    CREATE DATABASE library;
+result:
+    CREATE DATABASE
+    postgres=#
+
+9. show all containers:
+    docker ps -a
+
+10. restart container:
+    docker container start 0012dd799024
+
+
