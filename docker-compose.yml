@@ -18,9 +18,9 @@ services:
     privileged: true
     ports:
       - 8080:8080
-    command: bash -c "
+    command: sh -c "
         python manage.py migrate && 
-        gunicorn backend.wsgi -b 0.0.0.0:8080
+        gunicorn main.wsgi -b 0.0.0.0:8080
         "
     depends_on:
       - db
